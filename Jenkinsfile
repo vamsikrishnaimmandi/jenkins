@@ -51,7 +51,7 @@ node {
 
         stage('Deploy and Run Tests')
          {
-             echo DEPLOYDIR
+             //echo DEPLOYDIR
              cur=command "pwd"
              echo cur
             rc = command "\"${toolbelt}\" force:mdapi:deploy -u ${SF_USERNAME} -d manifest/."
