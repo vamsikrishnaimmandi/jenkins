@@ -51,7 +51,7 @@ node {
 
         stage('Deploy and Run Tests')
          {
-             echo ${DEPLOYDIR}
+             echo '${DEPLOYDIR}'
             rc = command "\"${toolbelt}\" force:mdapi:deploy --targetusername ${SF_USERNAME} -d ${DEPLOYDIR}"
             echo rc
             if (rc != 0) {
