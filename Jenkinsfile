@@ -31,6 +31,12 @@ node {
         // Authenticate to Salesforce using the server key.
         // -------------------------------------------------------------------------
 
+        stage('Authorize to Salesforce') {
+            rc = command "\"${toolbelt}\"sfdx force:auth:jwt:grant --clientid ${SF_CONSUMER_KEY} --jwtkeyfile c:\openssl\bin\server.key --username ${SF_USERNAME} --instanceurl https://login.salesforce.com --setdefaultdevhubusername --setalias UAT
+            if (rc != 0) {
+                error 'Salesforce org authorization failed.'
+            }
+        }
 
 
         // -------------------------------------------------------------------------
@@ -38,7 +44,7 @@ node {
         // -------------------------------------------------------------------------
 
         stage('Deploy and Run Tests') {
-            rc = command "\"${toolbelt}\" force:mdapi:deploy --wait 10 --deploydir ${DEPLOYDIR} --targetusername UAT --testlevel ${TEST_LEVEL}"
+            rc = command "\"${toolbelt}\"sfdx force:mdapi:deploy --wait 10 --deploydir ${DEPLOYDIR} --targetusername UAT --testlevel ${TEST_LEVEL}"
             if (rc != 0) {
                 error 'Salesforce deploy and test run failed.'
             }
