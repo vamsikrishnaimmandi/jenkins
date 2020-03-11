@@ -50,7 +50,7 @@ node {
 
         stage('Deploy and Run Tests')
          {
-            rc = command "\"${toolbelt}\" force:mdapi:deploy --wait 10 --deploydir /Windows/Temp/default.zip --targetusername ${SF_USERNAME} --testlevel ${TEST_LEVEL}"
+            rc = command "\"${toolbelt}\" force:mdapi:deploy --wait 10 --deploydir C:/Windows/Temp --targetusername ${SF_USERNAME} --testlevel ${TEST_LEVEL}"
             if (rc != 0) {
                 error 'Salesforce deploy and test run failed.'
             }
