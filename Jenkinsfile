@@ -50,7 +50,7 @@ node {
 
         stage('Deploy and Run Tests')
          {
-            rc = command "\"${toolbelt}\" force:mdapi:deploy -d manifest/. -u ${SF_USERNAME}"
+            rc = command "\"${toolbelt}\" force:mdapi:deploy --targetusername ${SF_USERNAME} --zipfile \Temp\manifest.zip"
             if (rc != 0) {
                 error 'Salesforce deploy and test run failed.'
             }
