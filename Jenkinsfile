@@ -5,7 +5,7 @@ node {
     def SF_CONSUMER_KEY=env.CONNECTED_APP_CONSUMER_KEY_DH
     def SF_USERNAME=env.HUB_ORG_DH
     def SERVER_KEY_CREDENTIALS_ID=env.JWT_CRED_ID_DH
-    def DEPLOYDIR='src'
+    def DEPLOYDIR='C:\Program Files (x86)\Jenkins\workspace\MyDevOrg_\manifest\.'
     def TEST_LEVEL='RunLocalTests'
 
 
@@ -50,7 +50,7 @@ node {
 
         stage('Deploy and Run Tests')
          {
-            rc = command "\"${toolbelt}\" force:mdapi:deploy --wait 10 --deploydir manifest/. --targetusername ${SF_USERNAME} --testlevel ${TEST_LEVEL}"
+            rc = command "\"${toolbelt}\" force:mdapi:deploy --wait 10 --deploydir ${DEPLOYDIR} --targetusername ${SF_USERNAME} --testlevel ${TEST_LEVEL}"
             if (rc != 0) {
                 error 'Salesforce deploy and test run failed.'
             }
