@@ -53,7 +53,8 @@ node {
          {
              cur=command "pwd"
              echo cur
-            rc = command "\"${toolbelt}\" force:mdapi:deploy -u ${SF_USERNAME} -d manifest/."
+            rc = command "\"${toolbelt}\" force:mdapi:deploy -u ${SF_USERNAME}"
+            echo "after rc"
             if (rc != 0) {
                 error 'Salesforce deploy and test run failed.'
             }
