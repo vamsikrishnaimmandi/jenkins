@@ -51,7 +51,9 @@ node {
 
         stage('Deploy and Run Tests')
          {
+             echo ${DEPLOYDIR}
             rc = command "\"${toolbelt}\" force:mdapi:deploy --targetusername ${SF_USERNAME} -d ${DEPLOYDIR}"
+            echo rc
             if (rc != 0) {
                 error 'Salesforce deploy and test run failed.'
             }
