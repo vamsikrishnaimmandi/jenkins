@@ -5,8 +5,9 @@ node {
     def SF_CONSUMER_KEY=env.CONNECTED_APP_CONSUMER_KEY_DH
     def SF_USERNAME=env.HUB_ORG_DH
     def SERVER_KEY_CREDENTIALS_ID=env.JWT_CRED_ID_DH
-    def DEPLOYDIR='src'
+    def DEPLOYDIR=env.gitpathforjenkins
     def TEST_LEVEL='RunLocalTests'
+
 
 
     def toolbelt = tool 'toolbelt'
@@ -50,7 +51,7 @@ node {
 
         stage('Deploy and Run Tests')
          {
-            rc = command "\"${toolbelt}\" force:mdapi:deploy --targetusername ${SF_USERNAME} -d /MyDevOrg_/manifest/."
+            rc = command "\"${toolbelt}\" force:mdapi:deploy --targetusername ${SF_USERNAME} -d ${DEPLOYDIR}"
             if (rc != 0) {
                 error 'Salesforce deploy and test run failed.'
             }
