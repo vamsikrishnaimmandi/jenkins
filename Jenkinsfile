@@ -51,7 +51,7 @@ node {
 
         stage('Deploy and Run Tests')
          {
-            rc = command "\"${toolbelt}\" force:source:deploy -u ${SF_USERNAME}"
+            rc = command "\"${toolbelt}\" force:source:deploy -p /MyDevOrg_/force-app/main/default/. -u ${SF_USERNAME}"
             echo "after rc"
             if (rc != 0) {
                 error 'Salesforce deploy and test run failed.'
