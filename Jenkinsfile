@@ -52,7 +52,7 @@ node {
         stage('Deploy and Run Tests')
          {
             rc = command "\"${toolbelt}\" force:mdapi:deploy -d manifest/. -u ${SF_USERNAME}"
-            rs= command "\"${toolbelt}\" force:mdapi:deploy:report
+            rs= command "\"${toolbelt}\" force:mdapi:deploy:report"
             echo "after rc"
             if (rc != 0) {
                 error 'Salesforce deploy and test run failed.'
