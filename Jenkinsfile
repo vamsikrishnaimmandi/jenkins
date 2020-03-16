@@ -25,15 +25,14 @@ node {
 
     withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')])
     {
-     /*   stage('Create Scratch Org') {
+       stage('Create Scratch Org') {
                
                  rc = bat returnStatus: true, script: "\"${toolbelt}\" force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile \"${jwt_key_file}\" --setdefaultdevhubusername --instanceurl ${SFDC_HOST} --setalias my-hub-org"
                     rs=bat returnStatus: true, script: "\"${toolbelt}\" force:config:set defaultdevhubusername=${HUB_ORG}"
             if (rc != 0) { error 'hub org authorization failed' }
 
             // need to pull out assigned username
-           rmsg = bat returnStatus: true, script: "\"${toolbelt}\" force:org:create -s -f config/project-scratch-def.json -a MyFirstScratch"
-            echo "--creation"
+           rmsg = bat returnStatus: true, script: "\"${toolbelt}\" force:org:create -f config/project-scratch-def.json"
             def jsonSlurper = new JsonSlurperClassic()
             def robj = jsonSlurper.parseText(rmsg)
             if (robj.status != 0) { error 'org creation failed: ' + robj.message }
@@ -47,9 +46,9 @@ node {
             {
                 error 'push failed'
             }
-        }*/
+        }
 
-        stage('Deploye Code') 
+      /*  stage('Deploye Code') 
         {
             if (isUnix()) {
                 rc = sh returnStatus: true, script: "${toolbelt} force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
@@ -70,6 +69,6 @@ node {
             printf rmsg
             println('Hello from a Job DSL script!')
             println(rmsg)
-        }
+        }*/
     }
 }
