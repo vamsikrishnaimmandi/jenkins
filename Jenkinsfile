@@ -32,7 +32,11 @@ node {
             if (rc != 0) { error 'hub org authorization failed' }
 
             // need to pull out assigned username
+<<<<<<< HEAD
            rmsg = bat returnStatus: true, script: "\"${toolbelt}\" force:org:create -f config/project-scratch-def.json"
+=======
+           rmsg = bat returnStatus: true, script: "\"${toolbelt}\" force:org:create -f project-scratch-def.json"
+>>>>>>> 3ad01d3aaedd09bd2f586bac59ff731de2ef774f
             def jsonSlurper = new JsonSlurperClassic()
             def robj = jsonSlurper.parseText(rmsg)
             if (robj.status != 0) { error 'org creation failed: ' + robj.message }
