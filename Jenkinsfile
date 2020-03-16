@@ -40,7 +40,7 @@ withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]
     }
     stage('retrive data from org')
     {
-        vk=bat returnStatus: true, script: "\"${toolbelt}\" force:source:retrieve -m ApexClass:StringMethods"
+        vk=bat returnStatus: true, script: "\"${toolbelt}\" force:source:retrieve -m CustomTab,CustomApplication,PermissionSet,StaticResource,FlexiPage,ApexClass,AuraDefinitionBundle,LightningComponentBundle,ApexComponent,ApexPage,ApexTrigger,CustomLabels,CustomObject,ContentAssert"
         if(vk != 0){error 'not retrived'}
     }
    /* stage('Push To Test Org')
