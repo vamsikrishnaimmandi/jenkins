@@ -35,12 +35,13 @@ withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]
         if (rc != 0) { error 'hub org authorization failed' }
 
         // need to pull out assigned username
-         rs=bat returnStatus: true, script: "\"${toolbelt}\" force:config:set defaultdevhubusername=${HUB_ORG}"
+        // rs=bat returnStatus: true, script: "\"${toolbelt}\" force:config:set defaultdevhubusername=${HUB_ORG}"
       //  rmsg = bat returnStatus: true, script: "\"${toolbelt}\" force:org:create --setdefaultusername --definitionfile config/project-scratch-def.json --setalias jenkins"
     }
     stage('retrive data from org')
     {
-        vk=bat returnStatus: true, script: "\"${toolbelt}\" force:source:retrieve -m CustomTab,CustomApplication,PermissionSet,StaticResource,FlexiPage,ApexClass,AuraDefinitionBundle,LightningComponentBundle,ApexComponent,ApexPage,ApexTrigger,CustomLabels,CustomObject,ContentAsset -u rookienoob123@popcornapps.com"
+         rs=bat returnStatus: true, script: "\"${toolbelt}\" force:config:set defaultusername=${HUB_ORG}"
+        vk=bat returnStatus: true, script: "\"${toolbelt}\" force:source:retrieve -m CustomTab,CustomApplication,PermissionSet,StaticResource,FlexiPage,ApexClass,AuraDefinitionBundle,LightningComponentBundle,ApexComponent,ApexPage,ApexTrigger,CustomLabels,CustomObject,ContentAsset"
         if(vk != 0){error 'not retrived'}
     }
    /* stage('Push To Test Org')
