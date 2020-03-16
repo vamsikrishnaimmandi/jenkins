@@ -41,7 +41,7 @@ withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]
     }
     stage('retrive data from org')
     {
-         rs=bat returnStatus: true, script: "\"${toolbelt}\" force:config:set defaultusername=${HUB_ORG}"
+        // rs=bat returnStatus: true, script: "\"${toolbelt}\" force:config:set defaultusername=${HUB_ORG}"
          
         vk=bat returnStatus: true, script: "\"${toolbelt}\" force:source:retrieve -m CustomTab,CustomApplication,PermissionSet,StaticResource,FlexiPage,ApexClass,AuraDefinitionBundle,LightningComponentBundle,ApexComponent,ApexPage,ApexTrigger,CustomLabels,CustomObject,ContentAsset"
         if(vk != 0){error 'not retrived'}
