@@ -28,6 +28,7 @@ node {
         stage('Create Scratch Org') {
                
                  rc = bat returnStatus: true, script: "\"${toolbelt}\" force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile \"${jwt_key_file}\" --setdefaultdevhubusername --instanceurl ${SFDC_HOST} --setalias my-hub-org"
+                    rs=bat returnStatus: true, script: "\"${toolbelt}\" force:config:set defaultdevhubusername=${HUB_ORG}"
             if (rc != 0) { error 'hub org authorization failed' }
 
             // need to pull out assigned username
