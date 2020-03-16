@@ -5,7 +5,7 @@ node
 
 def BUILD_NUMBER=env.BUILD_NUMBER
 def RUN_ARTIFACT_DIR="tests/${BUILD_NUMBER}"
-def SFDC_USERNAME
+def SFDC_USERNAME="jenkins@scratchorg.com"
 
 def HUB_ORG=env.HUB_ORG_DH
 def SFDC_HOST = env.SFDC_HOST_DH
@@ -36,13 +36,8 @@ withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]
         
          rs=bat returnStatus: true, script: "\"${toolbelt}\" force:config:set defaultdevhubusername=${HUB_ORG}"
          list= bat returnStatus: true, script: "\"${toolbelt}\" force:org:list"
-        rmsg = bat returnStatus: true, script: "\"${toolbelt}\" force:org:create --setdefaultusername --definitionfile config/project-scratch-def.json  --setalias jenkins -v ${HUB_ORG} "
-        printf rmsg
-            def jsonSlurper = new JsonSlurperClassic()
-            def robj = jsonSlurper.parseText(rmsg)
-            if (robj.status != 0) { error 'org creation failed: ' + robj.message }
-            SFDC_USERNAME=robj.result.username
-            robj = null
+        rmsg = bat returnStatus: true, script: "\"${toolbelt}\" force:org:create --setdefaultusername --definitionfile config/project-scratch-def.json  --setalias jenkins -v ${HUB_ORG} -u jenkins@scratchorg.com"
+       
     }
     stage('retrive data from org')
     {
