@@ -36,7 +36,7 @@ withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]
         
          rs=bat returnStatus: true, script: "\"${toolbelt}\" force:config:set defaultdevhubusername=${HUB_ORG}"
          list= bat returnStatus: true, script: "\"${toolbelt}\" force:org:list"
-        rmsg = bat returnStatus: true, script: "\"${toolbelt}\" force:org:create --setdefaultusername --definitionfile config/project-scratch-def.json  --setalias jenkins"
+        rmsg = bat returnStatus: true, script: "\"${toolbelt}\" force:org:create --setdefaultusername --definitionfile config/project-scratch-def.json  --setalias jenkins -v ${HUB_ORG} "
     }
     stage('retrive data from org')
     {
