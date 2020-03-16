@@ -33,7 +33,7 @@ node {
 
             // need to pull out assigned username
 
-           rmsg = bat returnStatus: true, script: "\"${toolbelt}\" force:org:create -f config/project-scratch-def.json"
+           rmsg = bat returnStatus: true, script: "\"${toolbelt}\" force:org:create --definitionfile config/project-scratch-def.json --json --setdefaultusername"
             def jsonSlurper = new JsonSlurperClassic()
             def robj = jsonSlurper.parseText(rmsg)
             if (robj.status != 0) { error 'org creation failed: ' + robj.message }
