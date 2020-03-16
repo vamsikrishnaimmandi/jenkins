@@ -38,9 +38,10 @@ withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]
          rs=bat returnStatus: true, script: "\"${toolbelt}\" force:config:set defaultdevhubusername=${HUB_ORG}"
       //  rmsg = bat returnStatus: true, script: "\"${toolbelt}\" force:org:create --setdefaultusername --definitionfile config/project-scratch-def.json --setalias jenkins"
     }
-    stage('Create Scratch Org') {
-        rmsg= bat returnStatus: true, script: "\"${toolbelt}\" force:org:create adminEmail=rookienoob000@gmail.com edition=Developer username=batman25@scratchOrg.com"
-    
+    stage('retrive data from org')
+    {
+        vk=bat returnStatus: true, script: "\"${toolbelt}\" force:source:retrieve -m ApexClass:StringMethods"
+        if(vk != 0){error 'not retrived'}
     }
    /* stage('Push To Test Org')
         {
