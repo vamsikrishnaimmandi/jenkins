@@ -39,7 +39,7 @@ withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]
       //  rmsg = bat returnStatus: true, script: "\"${toolbelt}\" force:org:create --setdefaultusername --definitionfile config/project-scratch-def.json --setalias jenkins"
     }
     stage('Create Scratch Org') {
-        rmsg= bat returnStatus: true, script: "\"${toolbelt}\" force:org:create adminEmail=rookie000@gmail.com edition=Developer username=rookie@scratchOrg.com"
+        rmsg= bat returnStatus: true, script: "\"${toolbelt}\" force:org:create adminEmail=rookienoob000@gmail.com edition=Developer username=rookie@scratchOrg.com"
     
     }
    /* stage('Push To Test Org')
