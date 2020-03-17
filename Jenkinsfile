@@ -64,11 +64,12 @@ withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]
         rs=bat returnStatus: true, script: "\"${toolbelt}\" force:org:list"
         if (rc != 0) { error 'hub org authorization failed' }
         remove=bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u arrow@popcornapps.com"
-        remove1=bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u kondamdeepaksai2222@gmail.com"
-        remove2=bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u sfdctraining@popcornapps.com"
-        remove3=bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u test-a4aw0lsugkii@example.com"
-        remove4=bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u vamsi@popcornapps.com"
-        remove4=bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u rookienoob123@popcornapps.com"
+        input: n/y
+        remove1=bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u kondamdeepaksai2222@gmail.com -p"
+        remove2=bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u sfdctraining@popcornapps.com -p"
+        remove3=bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u test-a4aw0lsugkii@example.com -p"
+        remove4=bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u vamsi@popcornapps.com -p"
+        remove4=bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u rookienoob123@popcornapps.com -p"
         // need to pull out assigned username
          echo "after removeing orgs"
         rs=bat returnStatus: true, script: "\"${toolbelt}\" force:org:list"
