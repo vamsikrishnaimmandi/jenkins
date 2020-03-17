@@ -20,63 +20,54 @@ println CONNECTED_APP_CONSUMER_KEY
 def toolbelt = tool 'toolbelt'
 
 stage('checkout source')
-    {
-    // when running in multi-branch job, one must issue this command
-   checkout scm
-}
-
-withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')])
 {
-   /* stage('Authorizing dev org')
-    {
-            
-        rc = bat returnStatus: true, script: "\"${toolbelt}\" force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile \"${jwt_key_file}\" --setdefaultdevhubusername --instanceurl ${SFDC_HOST} --setalias my-hub-org"
-        if (rc != 0) { error 'hub org authorization failed' }
-        // need to pull out assigned username
-        
-         rs=bat returnStatus: true, script: "\"${toolbelt}\" force:config:set defaultdevhubusername=${HUB_ORG} --global"
-         list= bat returnStatus: true, script: "\"${toolbelt}\" force:org:list"
-        rmsg = bat returnStatus: true, script: "\"${toolbelt}\" force:org:create --setdefaultusername --definitionfile config/project-scratch-def.json  --setalias jenkins -v ${HUB_ORG} username=jenkins@scratchorg.com"
-       
-    }
-    stage('retrive data from org')
-    {
-        // rs=bat returnStatus: true, script: "\"${toolbelt}\" force:config:set defaultusername=${HUB_ORG}"
-         
-        vk=bat returnStatus: true, script: "\"${toolbelt}\" force:source:retrieve -m CustomTab,CustomApplication,PermissionSet,StaticResource,FlexiPage,ApexClass,AuraDefinitionBundle,LightningComponentBundle,ApexComponent,ApexPage,ApexTrigger,CustomLabels,CustomObject,ContentAsset -u saikrishna@popcornapps.com"
-        if(vk != 0){error 'not retrived'}
-    }
-   stage('Push To Test Org')
-        {
-            rs=bat returnStatus: true, script: "\"${toolbelt}\" force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --jwtkeyfile \"${jwt_key_file}\" --username ${SFDC_USERNAME} --instanceurl https://test.salesforce.com"
-                rs=bat returnStatus: true, script: "\"${toolbelt}\" force:config:set defaultusername=${SFDC_USERNAME}"
-        rc = bat returnStatus: true, script: "\"${toolbelt}\" force:source:push --targetusername ${SFDC_USERNAME}"
-        if (rc != 0)
-        {
-            error 'push failed'
+    // when running in multi-branch job, one must issue this command
+    checkout scm
+}
+withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')])
+ {
+        stage('Authorizong Org')
+         {
+
+             rc = bat returnStatus: true, script: "\"${toolbelt}\" force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile \"${jwt_key_file}\" --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
+            if (rc != 0)
+            {
+              error 'hub org authorization failed' 
+            }
+             list= bat returnStatus: true, script: "\"${toolbelt}\" force:org:list"
         }
-    }*/
-
-      stage('Deploye Code') 
-    {
-     
-      remove=bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u saikrishna@popcornapps.com -p"
-                rc = bat returnStatus: true, script: "\"${toolbelt}\" force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile \"${jwt_key_file}\" --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
-        rs=bat returnStatus: true, script: "\"${toolbelt}\" force:org:list"
-        if (rc != 0) { error 'hub org authorization failed' }
-        // need to pull out assigned username
-
-     
-            rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d manifest/. -u ${HUB_ORG}"
-            printf rmsg
+        stage('Retrive Data')
+        {
+             vk=bat returnStatus: true, script: "\"${toolbelt}\" force:source:retrieve -m CustomTab,CustomApplication,PermissionSet,StaticResource,FlexiPage,ApexClass,AuraDefinitionBundle,LightningComponentBundle,ApexComponent,ApexPage,ApexTrigger,CustomLabels,CustomObject,ContentAsset -u ${HUB_ORG}"
+             if(vk != 0)
+             {
+                error 'not retrived'
+             }
+        }
+        stage('Creating Scratch Org')
+        {
+            rs=bat returnStatus: true, script: "\"${toolbelt}\" force:config:set defaultdevhubusername=${HUB_ORG}"
+            rmsg = bat returnStatus: true, script: "\"${toolbelt}\" force:org:create --setdefaultusername --definitionfile config/project-scratch-def.json  --setalias jenkins -v ${HUB_ORG} username=${SFDC_USERNAME}"
             if(rmsg !=0)
             {
-                error 'not deployed'
+                error 'Scratch Org not created'
             }
-            //
-        //printf rmsg
-        println('Hello from a Job DSL script!')
-        println(rmsg)
+        }
+        stage('push to scratch org')
+        {
+            rs=bat returnStatus: true, script: "\"${toolbelt}\" force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --jwtkeyfile \"${jwt_key_file}\" --username ${SFDC_USERNAME} --instanceurl https://test.salesforce.com "
+            rs=bat returnStatus: true, script: "\"${toolbelt}\" force:config:set defaultusername=${SFDC_USERNAME}"
+            rc = bat returnStatus: true, script: "\"${toolbelt}\" force:source:push --targetusername ${SFDC_USERNAME}"
+            if (rc != 0)
+            {
+                error 'push failed'
+            }
+        }
+        stage('logging out Orgs')
+        {
+            removeOrg=bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u ${HUB_ORG} -p"
+            removeScratchOrg=bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u ${SFDC_USERNAME} -p"
+            list= bat returnStatus: true, script: "\"${toolbelt}\" force:org:list"
+        }
     }
-}
 }
