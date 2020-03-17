@@ -63,8 +63,8 @@ withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]
                 rc = bat returnStatus: true, script: "\"${toolbelt}\" force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile \"${jwt_key_file}\" --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
         rs=bat returnStatus: true, script: "\"${toolbelt}\" force:org:list"
         if (rc != 0) { error 'hub org authorization failed' }
-        remove=bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u arrow@popcornapps.com"
-        input: n/y
+        remove=bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u arrow@popcornapps.com -p"
+        //input: n/y
         remove1=bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u kondamdeepaksai2222@gmail.com -p"
         remove2=bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u sfdctraining@popcornapps.com -p"
         remove3=bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u test-a4aw0lsugkii@example.com -p"
