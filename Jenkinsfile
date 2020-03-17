@@ -47,11 +47,8 @@ withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]
         stage('Creating Scratch Org')
         {
             rs=bat returnStatus: true, script: "\"${toolbelt}\" force:config:set defaultdevhubusername=${HUB_ORG}"
-            rmsg = bat returnStatus: true, script: "\"${toolbelt}\" force:org:create --setdefaultusername --definitionfile config/project-scratch-def.json  --setalias jenkins -v ${HUB_ORG} username=${SFDC_USERNAME}"
-            if(rmsg !=0)
-            {
-                error 'Scratch Org not created'
-            }
+            rmsg = bat returnStatus: true, script: "\"${toolbelt}\" force:org:create --definitionfile config/project-scratch-def.json -v ${HUB_ORG} username=${SFDC_USERNAME}"
+           
         }
         stage('push to scratch org')
         {
