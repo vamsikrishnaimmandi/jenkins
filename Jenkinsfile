@@ -66,7 +66,7 @@ withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]
         if (rc != 0) { error 'hub org authorization failed' }
         // need to pull out assigned username
 
-     /*
+     
             rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d manifest/. -u ${HUB_ORG}"
             if(rmsg !=0)
             {
@@ -75,7 +75,7 @@ withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]
             //
         printf rmsg
         println('Hello from a Job DSL script!')
-        println(rmsg)*/
+        println(rmsg)
     }
 }
 }
