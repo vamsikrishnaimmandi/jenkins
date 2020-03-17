@@ -60,19 +60,12 @@ withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]
       stage('Deploye Code') 
     {
      
+      remove=bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u saikrishna@popcornapps.com -p"
                 rc = bat returnStatus: true, script: "\"${toolbelt}\" force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile \"${jwt_key_file}\" --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
         rs=bat returnStatus: true, script: "\"${toolbelt}\" force:org:list"
         if (rc != 0) { error 'hub org authorization failed' }
-        remove=bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u arrow@popcornapps.com -p"
-        //input: n/y
-        remove1=bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u kondamdeepaksai2222@gmail.com -p"
-        remove2=bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u sfdctraining@popcornapps.com -p"
-        remove3=bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u test-a4aw0lsugkii@example.com -p"
-        remove4=bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u vamsi@popcornapps.com -p"
-        remove4=bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u rookienoob123@popcornapps.com -p"
         // need to pull out assigned username
-         echo "after removeing orgs"
-        rs=bat returnStatus: true, script: "\"${toolbelt}\" force:org:list"
+
      /*
             rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d manifest/. -u ${HUB_ORG}"
             if(rmsg !=0)
