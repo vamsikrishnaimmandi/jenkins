@@ -26,7 +26,7 @@ stage('checkout source')
 }
 withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')])
  {
-        stage('Authorizong Org')
+        stage('Authorizong Dev Org')
          {
 
              rc = bat returnStatus: true, script: "\"${toolbelt}\" force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile \"${jwt_key_file}\" --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
@@ -57,6 +57,7 @@ withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]
             //rs=bat returnStatus: true, script: "\"${toolbelt}\" force:config:set defaultusername=${SFDC_USERNAME}"
             list= bat returnStatus: true, script: "\"${toolbelt}\" force:org:list"
             rc = bat returnStatus: true, script: "\"${toolbelt}\" force:source:push --targetusername ${SFDC_USERNAME}"
+            list= bat returnStatus: true, script: "\"${toolbelt}\" force:org:open -u ${SFDC_USERNAME}"
         }
         stage('logging out Orgs')
         {
