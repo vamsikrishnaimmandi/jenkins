@@ -27,7 +27,7 @@ stage('checkout source')
 
 withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')])
 {
-    stage('Authorizing dev org')
+   /* stage('Authorizing dev org')
     {
             
         rc = bat returnStatus: true, script: "\"${toolbelt}\" force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile \"${jwt_key_file}\" --setdefaultdevhubusername --instanceurl ${SFDC_HOST} --setalias my-hub-org"
@@ -55,9 +55,9 @@ withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]
         {
             error 'push failed'
         }
-    }
+    }*/
 
-    /*  stage('Deploye Code') 
+      stage('Deploye Code') 
     {
         if (isUnix()) {
             rc = sh returnStatus: true, script: "${toolbelt} force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
@@ -78,6 +78,6 @@ withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]
         printf rmsg
         println('Hello from a Job DSL script!')
         println(rmsg)
-    }*/
+    }
 }
 }
