@@ -1,7 +1,7 @@
 public class StringMethods {
     public static void string()
     {
-      //System.debug()
+      System.debug();
     }
 
     public static void reverse()
