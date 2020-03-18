@@ -11,7 +11,7 @@
  <!-- Shows deploying code & running tests for code in directory -->
      <target name="deployCode">
       <!-- Upload the contents of the "codepkg" directory, running the tests for just 1 class -->
-      <sf:deploy username="sfdctraining@popcornapps.com" password="12345@sfdcg5MjkIbQTTLkpXxLvZEEESD5"  serverurl="https://login.salesforce.com/"  deployRoot="src/mainfest" testLevel="RunSpecifiedTests" rollbackOnError="true">
+      <sf:deploy username="sfdctraining@popcornapps.com" password="12345@sfdcg5MjkIbQTTLkpXxLvZEEESD5"  serverurl="https://login.salesforce.com/"  deployRoot="mainfest" testLevel="RunSpecifiedTests" rollbackOnError="true">
       	 <runTest>SampleDeployClass</runTest> 
       </sf:deploy>
     </target>
