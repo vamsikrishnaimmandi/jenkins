@@ -9,7 +9,7 @@ def SFDC_USERNAME="AkiAndPawpaw@scratchorg.com"
 
 def HUB_ORG="saikrishna@popcornapps.com"
 def SFDC_HOST = "https://login.salesforce.com"
-def JWT_KEY_CRED_ID = "3MVG9G9pzCUSkzZtcqisU2ZKleg1w9PY3qP_l0TzXerOQr4Emu9xOLLNYCr.PWXe59QTa2Enuk2RRuFggHCMi"
+def JWT_KEY_CRED_ID = env.CONNECTED_APP_CONSUMER_KEY_DH
 def CONNECTED_APP_CONSUMER_KEY=env.CONNECTED_APP_CONSUMER_KEY_DH
 
 println 'KEY IS' 
