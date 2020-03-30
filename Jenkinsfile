@@ -2,7 +2,7 @@
 import groovy.json.JsonSlurperClassic
 node
 {
-
+//fishy
 //def BUILD_NUMBER=env.BUILD_NUMBER
 //def RUN_ARTIFACT_DIR="tests/${BUILD_NUMBER}"
 def SFDC_USERNAME="machaChittor@scratchorg.com"
